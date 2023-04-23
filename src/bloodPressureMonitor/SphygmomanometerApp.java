@@ -12,8 +12,10 @@ public class SphygmomanometerApp {
 		
 		File mainFile = new File("sphygFile.txt");
 		
-		if (mainFile.exists())
+		if (mainFile.exists()) {
 			Sphygmomanometer.recoverFile();
+			System.out.println("Records are connected.");
+		}
 		
 		else
 			Sphygmomanometer.newRecFile();

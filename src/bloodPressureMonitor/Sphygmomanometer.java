@@ -23,11 +23,11 @@ public class Sphygmomanometer {
 	
 
 	
-	public static ArrayList<PatientBloodPressure> sphygArr = new ArrayList<PatientBloodPressure>();
+	public static ArrayList<PatientBloodPressure> sphygArr = new ArrayList<PatientBloodPressure>(); //Create ArrayList for PatientBloodPressure objects
 	
 	
 	
-	public static void newRecFile() {
+	public static void newRecFile() {						//Create and initialize new file for records
 		
 		File sphygFile = new File("sphygFile.txt");
 		
@@ -56,7 +56,7 @@ public class Sphygmomanometer {
 	
 	
 	
-	public static void delRecFile() {
+	public static void delRecFile() {						//Delete existing record file
 		File delSphyg = new File("sphygFile.txt");
 		
 	    if (delSphyg.delete()) { 
@@ -69,7 +69,7 @@ public class Sphygmomanometer {
 	}
 	
 	
-	public static void addRecord(String initName, int initAge,int initSyspress, int initDiapress, int initPatpulse) {
+	public static void addRecord(String initName, int initAge,int initSyspress, int initDiapress, int initPatpulse) {		//Add new patient object to ArrayList and add record to file
 		
 		sphygArr.add(new PatientBloodPressure(initName, initAge, initSyspress, initDiapress, initPatpulse));
 		
@@ -113,7 +113,7 @@ public class Sphygmomanometer {
 	}
 	
 
-	public static void lastRecord() {
+	public static void lastRecord() {		//Give info for adding new record
 		
 		String lastRecName = sphygArr.get(sphygArr.size()-1).name;
 		int lastRecAge = sphygArr.get(sphygArr.size()-1).pat_age;
@@ -129,7 +129,7 @@ public class Sphygmomanometer {
 	}
 	
 
-	public static void delNameRecord(String getName) {
+	public static void delNameRecord(String getName) {		//Deletes all records for a patient or deletes only the last record of a patient.
 		
 		System.out.println("Delete only last record or delete all records for this patient: For last record enter 1 - For all records enter 2");
 		
@@ -216,7 +216,7 @@ public class Sphygmomanometer {
 	}
 
 
-	public static int checkName(String nameCheck) {
+	public static int checkName(String nameCheck) {			//Checks the name input if it exists in records.
 		
 		int findCheck = 0;
 		
@@ -244,7 +244,7 @@ public class Sphygmomanometer {
 	}
 
 
-	private static void recRemoveFile() {
+	private static void recRemoveFile() {			//After record deletions, this method creates the record file again.
 		
 		
 		try {
@@ -309,7 +309,7 @@ public class Sphygmomanometer {
 	}
 
 
-	public static void avgPatient(String avgName) {
+	public static void avgPatient(String avgName) {		//Calculates average values
 		
 		double sum_sys = 0;
 		double sum_dia = 0;
@@ -353,7 +353,7 @@ public class Sphygmomanometer {
 	}
 
 
-	public static void patMinMax(String min_max_name) {
+	public static void patMinMax(String min_max_name) {		//Calculates min and max values
 	
 	
 		Integer sys_arr[] = {};
@@ -394,7 +394,7 @@ public class Sphygmomanometer {
 	}
 	
 	
-	public static void patCategory(String catName) {
+	public static void patCategory(String catName) {		//Show blood pressure category
 		
 		for(int i = sphygArr.size()-1; i >= 0; i--) {
 			
@@ -435,7 +435,7 @@ public class Sphygmomanometer {
 	
 	
 	
-	public static void recoverFile() {
+	public static void recoverFile() {				//If a record file exists in project folder, this method creates patient arraylist using that folder
 		
 		
 		
@@ -494,7 +494,7 @@ public class Sphygmomanometer {
 	}
 	
 	
-	public static void recRecordsArr(String initName, int initAge,int initSyspress, int initDiapress, int initPatpulse) {
+	public static void recRecordsArr(String initName, int initAge,int initSyspress, int initDiapress, int initPatpulse) {    // Only add objects to arraylist 
 		
 		sphygArr.add(new PatientBloodPressure(initName, initAge, initSyspress, initDiapress, initPatpulse));
 	
