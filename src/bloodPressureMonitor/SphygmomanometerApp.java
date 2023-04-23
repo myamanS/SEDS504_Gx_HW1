@@ -1,5 +1,6 @@
 package bloodPressureMonitor;
 import java.util.Scanner;
+import java.io.File; 
 
 public class SphygmomanometerApp {
 
@@ -9,11 +10,21 @@ public class SphygmomanometerApp {
 		
 		int progCount = 0;
 		
+		File mainFile = new File("sphygFile.txt");
+		
+		if (mainFile.exists())
+			Sphygmomanometer.recoverFile();
+		
+		else
+			Sphygmomanometer.newRecFile();
+		
+		
+		
 		
 		while(progCount != 999999) {
 			
 			System.out.println("-----------------------------------------------------------\n-Blood Pressure Monitor Menu-\n\n1-)ADD NEW RECORD\n2-)DELETE RECORD\n3-)AVERAGE OF PATIENT'S MEASUREMENTS\n"
-					+ "4-)MINIMUM AND MAXIMUM VALUES OF PATIENT'S MEASUREMENTS\n5-)CATEGORY OF BLOOD PRESSURE MEASUREMENT\n6-)EXIT\n-----------------------------------------------------------");
+					+ "4-)MINIMUM AND MAXIMUM VALUES OF PATIENT'S MEASUREMENTS\n5-)CATEGORY OF BLOOD PRESSURE MEASUREMENT\n6-)EXIT\n7-)EXIT AND DELETE ALL RECORDS\n-----------------------------------------------------------");
 			
 			
 			
@@ -144,7 +155,7 @@ public class SphygmomanometerApp {
 				userInputIn.close();
 				
 				
-				Sphygmomanometer.delRecFile();
+				
 				
 				break;
 			
@@ -153,8 +164,10 @@ public class SphygmomanometerApp {
 			
 			else{
 				
-				System.out.println("Wrong User Input");
+				userInputIn.close();
+				Sphygmomanometer.delRecFile();
 				
+				break;
 			}
 			
 			
