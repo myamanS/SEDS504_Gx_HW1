@@ -7,6 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException; 
 import java.util.Arrays;  
 import java.util.Collections;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.StringTokenizer;
+import java.lang.Character;
+import java.lang.Integer;
 
 
 
@@ -25,6 +30,20 @@ public class Sphygmomanometer {
 	public static void newRecFile() {
 		
 		File sphygFile = new File("sphygFile.txt");
+		
+		try {
+		
+			FileWriter headerWriter = new FileWriter("sphygFile.txt",true);
+			headerWriter.write("index,name,age,systolic,diastolic,pulse\n");
+	    	headerWriter.close();
+	        System.out.println("Successfully created new file.");
+			
+		}
+		
+		catch (IOException e) {
+	        System.out.println("An error occurred.");
+	        e.printStackTrace();
+	     }
 		
 		//FileWriter sphygWriter = new FileWriter("sphygFile.txt");
 	    //sphygWriter.write(PatientBloodPressure.name);
@@ -45,8 +64,7 @@ public class Sphygmomanometer {
 	    } else {
 	      System.out.println("Failed to delete the file.");
 	    } 
-		
-			
+				
 		
 	}
 	
@@ -63,19 +81,19 @@ public class Sphygmomanometer {
 	    	
 	    	sphygWriter.write(String.valueOf((sphygArr.size()-1)));
 	    	
-	    	sphygWriter.write(" Name:");
+	    	sphygWriter.write(",");
 	    	sphygWriter.write(initName);
 	    	
-	    	sphygWriter.write(" Age:");
+	    	sphygWriter.write(",");
 	    	sphygWriter.write(String.valueOf(initAge));
 	    	
-	    	sphygWriter.write(" Systolic:");
+	    	sphygWriter.write(",");
 	    	sphygWriter.write(String.valueOf(initSyspress));
 	    	
-	    	sphygWriter.write(" Diastolic:");
+	    	sphygWriter.write(",");
 	    	sphygWriter.write(String.valueOf(initDiapress));
 	    	
-	    	sphygWriter.write(" Pulse:");
+	    	sphygWriter.write(",");
 	    	sphygWriter.write(String.valueOf(initPatpulse));
 	    	
 	    	sphygWriter.write("\n");
@@ -91,13 +109,6 @@ public class Sphygmomanometer {
 	     }
 		
 		
-		
-		
-		
-	
-	
-	
-	
 	
 	}
 	
@@ -139,9 +150,6 @@ public class Sphygmomanometer {
 			while(sphygArr.size() > 0 && finder < sphygArr.size()) {
 				
 				
-				
-				
-				
 				curName = sphygArr.get(finder).name;
 				
 				if (curName.equals(getName)) {
@@ -167,9 +175,6 @@ public class Sphygmomanometer {
 			
 			
 			
-			
-
-		
 		
 		}	
 		
@@ -257,7 +262,9 @@ public class Sphygmomanometer {
 		
 		
 		try {
-	    	FileWriter delConWriter = new FileWriter("sphygFile.txt");
+	    	
+			FileWriter delConWriter = new FileWriter("sphygFile.txt");
+	    	delConWriter.write("index,name,age,systolic,diastolic,pulse\n");
 	    	
 	    	for(int write = 0; write < sphygArr.size(); write++) {
 	    		
@@ -265,21 +272,21 @@ public class Sphygmomanometer {
 	    		delConWriter.write(String.valueOf(write));
 	    		
 	    		
-	    		delConWriter.write(" Name: ");
+	    		delConWriter.write(",");
 	    		delConWriter.write(sphygArr.get(write).name);
 	    		
-	    		delConWriter.write(" Age: ");
+	    		delConWriter.write(",");
 	    		delConWriter.write(String.valueOf(sphygArr.get(write).pat_age));
 	    		
-	    		delConWriter.write(" Systolic: ");
+	    		delConWriter.write(",");
 	    		delConWriter.write(String.valueOf(sphygArr.get(write).sys_press));
 	    		
 	    		
-	    		delConWriter.write(" Diastolic: ");
+	    		delConWriter.write(",");
 	    		delConWriter.write(String.valueOf(sphygArr.get(write).dia_press));
 	    		
 	    		
-	    		delConWriter.write(" Pulse: ");
+	    		delConWriter.write(",");
 	    		delConWriter.write(String.valueOf(sphygArr.get(write).pat_pulse));
 	    		
 	    		delConWriter.write("\n");
@@ -425,6 +432,75 @@ public class Sphygmomanometer {
 		}
 		
 	}
+	
+	
+	
+	public static void recoverFile() {
+		
+		
+		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("sphygFile.txt"));
+			String line = reader.readLine();
+			
+			while (line != null) {
+				
+				if(Character.isDigit(line.charAt(0))) {
+				
+					String[] cell = line.split("[,]",0);
+					
+					ArrayList<String> cells = new ArrayList<String>();
+					
+					for(int cell_count = 1; cell_count<6; cell_count++) {
+						
+						String get_value = cell[cell_count];
+						
+						cells.add(get_value);
+						
+						
+						
+						
+					}
+					
+				//System.out.println(cells.get(0)+ cells.get(1)+ cells.get(2)+ cells.get(3)+cells.get(4));
+				
+				
+					recRecordsArr(cells.get(0), Integer.valueOf(cells.get(1)),Integer.valueOf(cells.get(2)),Integer.valueOf(cells.get(3)),
+							Integer.valueOf(cells.get(4)));
+				
+				
+				}
+				
+				
+				//StringTokenizer st = new StringTokenizer(line);
+				
+				//String value = st.nextToken(delimeter);
+				
+				//System.out.println(value);
+				
+				// read next line
+				line = reader.readLine();
+			}
+
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
+	
+	public static void recRecordsArr(String initName, int initAge,int initSyspress, int initDiapress, int initPatpulse) {
+		
+		sphygArr.add(new PatientBloodPressure(initName, initAge, initSyspress, initDiapress, initPatpulse));
+	
+	
+	}
+	
 	
 
 }	
